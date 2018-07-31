@@ -1,35 +1,19 @@
 from tkinter import *
 
+def show_entry_fields():
+   print("First Name: %s\nLast Name: %s" % (e1.get(), e2.get()))
+
 master = Tk()
+Label(master, text="First Name").grid(row=0)
+Label(master, text="Last Name").grid(row=1)
 
-e = Entry(master)
-e.pack()
+e1 = Entry(master)
+e2 = Entry(master)
 
-e.focus_set()
+e1.grid(row=0, column=1)
+e2.grid(row=1, column=1)
 
-def callback():
-    print e.get()
+Button(master, text='Quit', command=master.quit).grid(row=3, column=0, sticky=W, pady=4)
+Button(master, text='Show', command=show_entry_fields).grid(row=3, column=1, sticky=W, pady=4)
 
-b = Button(master, text="get", width=10, command=callback)
-b.pack()
-
-mainloop()
-e = Entry(master, width=50)
-e.pack()
-
-text = e.get()
-def makeentry(parent, caption, width=None, **options):
-    Label(parent, text=caption).pack(side=LEFT)
-    entry = Entry(parent, **options)
-    if width:
-        entry.config(width=width)
-    entry.pack(side=LEFT)
-    return entry
-
-user = makeentry(parent, "User name:", 10)
-password = makeentry(parent, "Password:", 10, show="*")
-content = StringVar()
-entry = Entry(parent, text=caption, textvariable=content)
-
-text = content.get()
-content.set(text)
+mainloop( )
