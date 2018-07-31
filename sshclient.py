@@ -32,7 +32,12 @@ def print_to_console_window():
 	pass
 	
 def read_input_window():
+	keyboard_input = ""
 	keyboard_input = ssh_input_window.get()
+	stdin, stdout, stderr = ssh.exec_command(keyboard_input)
+	ssh_output = stdout.readlines()
+	ssh_output_window.insert(END, ssh_output)
+		
 
 host_address = input ("Give host address: ") or "192.168.10.60"
 host_port = input ("Give host port, empty for 22:") or 22
@@ -43,20 +48,11 @@ shell_text = (username + "@" + host_address + ": ")
 
 ssh.connect(host_address, port=host_port, username = username, password = password)
 
-keyboard_input = ""
 
-while keyboard_input != "QUIT":
-	
-	Button(root, text='Show', command=read_input_window).grid(row = 40, column = 50)
-		
-	stdin, stdout, stderr = ssh.exec_command(keyboard_input)
-	ssh_output = stdout.readlines()
-	ssh_output_window.insert(END, ssh_output)
-	
-	if keyboard_input != "QUIT":
-		ssh_output = stderr.readlines()
-		ssh_output_window.insert(END, ssh_output)
-	root.mainloop()
+
+Button(root, text='Show', command=read_input_window).grid(row = 40, column = 50)
+
+root.mainloop()
 
 ssh.close()
 print ("Connection closed")
