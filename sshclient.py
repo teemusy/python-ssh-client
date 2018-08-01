@@ -43,7 +43,11 @@ password = getpass.getpass("Give password: ") or "salasana"
 #text for console window
 shell_text = (username + "@" + host_address + ": ")
 
-ssh.connect(host_address, port=host_port, username = username, password = password)
+ssh.connect(host_address, port = host_port, username = username, password = password)
+
+#print server info
+server_info = "Connected to " + host_address + " as " + username + "\n\n"
+ssh_output_window.insert(END, server_info)
 
 #print welcome message, doesn't work, returns nonetype variable
 welcome_message = ssh._transport.get_banner()
